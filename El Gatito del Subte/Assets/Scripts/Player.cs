@@ -5,27 +5,35 @@ using UnityEngine;
 public class Player : BaseClass
 {
     public int movementSpeed;
+
     void FixedUpdate()
     {
         Vector2 movementDirection = Vector2.zero;
         if(!globalScript.isPlayingIntro)
         {
+            int animationToDisplay = 0;
             if (Input.GetKey(KeyCode.W))
             {
                 movementDirection += Vector2.up;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                movementDirection += Vector2.left;
+                animationToDisplay = 1;
             }
             if (Input.GetKey(KeyCode.S))
             {
                 movementDirection += Vector2.down;
+                animationToDisplay = 2;
             }
             if (Input.GetKey(KeyCode.D))
             {
                 movementDirection += Vector2.right;
+                animationToDisplay = 3;
             }
+            if (Input.GetKey(KeyCode.A))
+            {
+                movementDirection += Vector2.left;
+                animationToDisplay = 4;
+            }
+            if (movementDirection.magnitude == 0) animationToDisplay = 0;
+            GetComponent<CharacterAnimator>().setCurrentAnimation(animationToDisplay);
             GetComponent<Rigidbody2D>().MovePosition(GetComponent<Rigidbody2D>().position + movementDirection.normalized * movementSpeed * Time.fixedDeltaTime);
         }
     }
@@ -45,9 +53,9 @@ public class Player : BaseClass
         {
             globalScript.switchCurrentTimer(col.gameObject.name);
         }
-        if (col.gameObject.CompareTag("DontSpawnTrains"))
+        if (col.gameObject.CompareTag("BottomPlatform"))
         {
-            globalScript.setTrainSpawn(false);
+            GetComponent<SpriteRenderer>().sortingOrder = 5;
         }
     }
 
@@ -55,7 +63,11 @@ public class Player : BaseClass
     {
         if (col.gameObject.CompareTag("DontSpawnTrains"))
         {
-            globalScript.setTrainSpawn(true);
+            globalScript.setTrainSpawn(!globalScript.allowSpawn);
+        }
+        if (col.gameObject.CompareTag("BottomPlatform"))
+        {
+            GetComponent<SpriteRenderer>().sortingOrder = 2;
         }
     }
 }

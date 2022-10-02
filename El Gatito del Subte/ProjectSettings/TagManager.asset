@@ -9,6 +9,7 @@ TagManager:
   - GlobalObject
   - TunnelLimit
   - DontSpawnTrains
+  - BottomPlatform
   layers:
   - Default
   - TransparentFX
