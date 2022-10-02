@@ -14,17 +14,17 @@ public class Spawner : BaseClass
     public int trainSpeed;
     public Image topTimerImage;
     public Image bottomTimerImage;
-
+    // x=15
     const float TRAIN_LIFESPAN = 5;
 
     private void Start()
     {
-        bottomTimer = spawnTime / 2;
+        bottomTimer = -spawnTime / 2;
     }
 
     void Update()
     {
-        if (!globalScript.isPlayingIntro)
+        if (!globalScript.isPlayingIntro && globalScript.allowSpawn)
         {
             topTimer += Time.deltaTime;
             topTimerImage.color = new Color(topTimer / spawnTime, 1 - topTimer / spawnTime, 0);

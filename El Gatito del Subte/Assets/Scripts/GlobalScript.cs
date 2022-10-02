@@ -14,6 +14,8 @@ public class GlobalScript : MonoBehaviour
     public int checkpointStatus;
     public bool runScoreTimer;
     public Text[] stationScores;
+    public bool allowSpawn = true;
+    public GameObject spawnPauseIcon;
 
     void Update()
     {
@@ -41,6 +43,13 @@ public class GlobalScript : MonoBehaviour
     {
         playerScore++;
         score.text = "Coins: " + Convert.ToString(playerScore);
+    }
+
+    // Sets if train spawn is allowwd
+    public void setTrainSpawn(bool allow)
+    {
+        allowSpawn = allow;
+        spawnPauseIcon.SetActive(!allow);
     }
 
     // Switches current timer status
@@ -77,6 +86,38 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[1].text = "Station score: " + currentTimeTimer.ToString("0.0");
+                }
+                break;
+            case "EndC":
+                if (checkpointStatus == 4)
+                {
+                    runScoreTimer = true;
+                    checkpointStatus++;
+                    currentTimeTimer = 0;
+                }
+                break;
+            case "StartP":
+                if (checkpointStatus == 5)
+                {
+                    runScoreTimer = false;
+                    checkpointStatus++;
+                    stationScores[2].text = "Station score: " + currentTimeTimer.ToString("0.0");
+                }
+                break;
+            case "EndP":
+                if (checkpointStatus == 6)
+                {
+                    runScoreTimer = true;
+                    checkpointStatus++;
+                    currentTimeTimer = 0;
+                }
+                break;
+            case "StartPJ":
+                if (checkpointStatus == 7)
+                {
+                    runScoreTimer = false;
+                    checkpointStatus++;
+                    stationScores[3].text = "Station score: " + currentTimeTimer.ToString("0.0");
                 }
                 break;
             default:

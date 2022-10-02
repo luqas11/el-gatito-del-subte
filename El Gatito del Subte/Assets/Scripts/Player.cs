@@ -45,5 +45,17 @@ public class Player : BaseClass
         {
             globalScript.switchCurrentTimer(col.gameObject.name);
         }
+        if (col.gameObject.CompareTag("DontSpawnTrains"))
+        {
+            globalScript.setTrainSpawn(false);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("DontSpawnTrains"))
+        {
+            globalScript.setTrainSpawn(true);
+        }
     }
 }
