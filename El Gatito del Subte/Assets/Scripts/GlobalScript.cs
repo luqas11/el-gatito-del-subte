@@ -16,6 +16,8 @@ public class GlobalScript : MonoBehaviour
     public Text[] stationScores;
     public bool allowSpawn = true;
     public GameObject spawnPauseIcon;
+    public GameObject canvas;
+    public GameObject screenNotification;
 
     void Update()
     {
@@ -42,14 +44,22 @@ public class GlobalScript : MonoBehaviour
     public void increaseScore(int value)
     {
         playerScore++;
-        score.text = "Coins: " + Convert.ToString(playerScore);
+        score.text = Convert.ToString(playerScore);
     }
 
-    // Sets if train spawn is allowwd
+    // Sets if train spawn is allowed
     public void setTrainSpawn(bool allow)
     {
         allowSpawn = allow;
         spawnPauseIcon.SetActive(!allow);
+    }
+
+    // Shows a text notification overlay, that disappears after some time
+    public void showNotification(string text)
+    {
+        GameObject notification = Instantiate(screenNotification);
+        notification.transform.SetParent(canvas.transform, false);
+        notification.GetComponent<TextNotification>().textElement.text = text;
     }
 
     // Switches current timer status
@@ -62,6 +72,7 @@ public class GlobalScript : MonoBehaviour
                 {
                     runScoreTimer = true;
                     checkpointStatus++;
+                    showNotification("Leaving San Pedrito station");
                 }
                 break;
             case "StartF":
@@ -70,6 +81,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[0].text = "Station score: " + currentTimeTimer.ToString("0.0");
+                    showNotification("Arriving to Flores station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
             case "EndF":
@@ -78,6 +90,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
+                    showNotification("Leaving Flores station");
                 }
                 break;
             case "StartC":
@@ -86,6 +99,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[1].text = "Station score: " + currentTimeTimer.ToString("0.0");
+                    showNotification("Arriving to Carabobo station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
             case "EndC":
@@ -94,6 +108,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
+                    showNotification("Leaving Carabobo station");
                 }
                 break;
             case "StartP":
@@ -102,6 +117,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[2].text = "Station score: " + currentTimeTimer.ToString("0.0");
+                    showNotification("Arriving to Puan station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
             case "EndP":
@@ -110,6 +126,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
+                    showNotification("Leaving Puan station");
                 }
                 break;
             case "StartPJ":
@@ -118,6 +135,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[3].text = "Station score: " + currentTimeTimer.ToString("0.0");
+                    showNotification("Arriving to Primera Junta station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
             default:

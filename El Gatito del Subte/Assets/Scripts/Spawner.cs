@@ -14,7 +14,7 @@ public class Spawner : BaseClass
     public int trainSpeed;
     public Image topTimerImage;
     public Image bottomTimerImage;
-    // x=15
+
     const float TRAIN_LIFESPAN = 5;
 
     private void Start()
@@ -27,7 +27,7 @@ public class Spawner : BaseClass
         if (!globalScript.isPlayingIntro && globalScript.allowSpawn)
         {
             topTimer += Time.deltaTime;
-            topTimerImage.color = new Color(topTimer / spawnTime, 1 - topTimer / spawnTime, 0);
+            topTimerImage.color = new Color(getExpIntensity(topTimer), 1 - getExpIntensity(topTimer), 0);
             if (topTimer > spawnTime)
             {
                 topTimer = 0;
@@ -37,20 +37,27 @@ public class Spawner : BaseClass
             }
 
             bottomTimer += Time.deltaTime;
-            bottomTimerImage.color = new Color(bottomTimer / spawnTime, 1 - bottomTimer / spawnTime, 0);
+            bottomTimerImage.color = new Color(getExpIntensity(bottomTimer), 1 - getExpIntensity(bottomTimer), 0);
             if (bottomTimer > spawnTime)
             {
                 bottomTimer = 0;
                 Rigidbody2D spawnedTrain = Instantiate(train, bottomSpawner.position, bottomSpawner.rotation).GetComponent<Rigidbody2D>();
-                spawnedTrain.velocity = Vector2.right * trainSpeed;
+                spawnedTrain.velocity = Vector2.left * trainSpeed;
                 StartCoroutine(destroyTrain(spawnedTrain.gameObject));
             }
         }
     }
 
+    // Destroys the given GameObject after the time given by the TRAIN_LIFESPAN constant
     IEnumerator destroyTrain(GameObject objectToDestroy)
     {
         yield return new WaitForSeconds(TRAIN_LIFESPAN);
         Destroy(objectToDestroy);
+    }
+
+    // Maps a [0, 1] linear function to an exponential function
+    public float getExpIntensity(float timer)
+    {
+        return (float)(Math.Exp(5 * timer / spawnTime - 3) / 8);
     }
 }
