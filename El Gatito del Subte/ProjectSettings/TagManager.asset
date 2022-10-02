@@ -10,6 +10,7 @@ TagManager:
   - TunnelLimit
   - DontSpawnTrains
   - BottomPlatform
+  - StationRewardIndicator
   layers:
   - Default
   - TransparentFX

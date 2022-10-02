@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : BaseClass
@@ -56,6 +54,11 @@ public class Player : BaseClass
         if (col.gameObject.CompareTag("BottomPlatform"))
         {
             GetComponent<SpriteRenderer>().sortingOrder = 5;
+        }
+        if (col.gameObject.CompareTag("StationRewardIndicator"))
+        {
+            globalScript.increaseScore(col.gameObject.GetComponent<StationReward>().coinAmount);
+            Destroy(col.gameObject);
         }
     }
 

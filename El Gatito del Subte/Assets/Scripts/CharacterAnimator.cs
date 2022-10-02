@@ -21,6 +21,7 @@ public class CharacterAnimator : MonoBehaviour
         idleSprite = frontSprites[0];
         setCurrentAnimation(0);
     }
+
     void Update()
     {
         timer += Time.deltaTime;
@@ -29,6 +30,8 @@ public class CharacterAnimator : MonoBehaviour
             updateSprite();
         }
     }
+
+    // Update character sprite to the next one
     public void updateSprite()
     {
         if (index >= currentSprites.Length)
@@ -40,6 +43,7 @@ public class CharacterAnimator : MonoBehaviour
         index++;
     }
 
+    // Set current animation to display by specifying an index number
     public void setCurrentAnimation(int animation)
     {
         switch (animation)
@@ -78,7 +82,7 @@ public class CharacterAnimator : MonoBehaviour
                 currentStage = 4;
                 break;
             default:
-                throw new Exception("Unknown animation name");
+                throw new Exception("Unknown animation index");
         }
     }
 }

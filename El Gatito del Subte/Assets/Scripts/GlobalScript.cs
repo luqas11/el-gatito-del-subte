@@ -14,18 +14,32 @@ public class GlobalScript : MonoBehaviour
     public int checkpointStatus;
     public bool runScoreTimer;
     public Text[] stationScores;
+    public StationReward[] stationCoinIndicators;
     public bool allowSpawn = true;
     public GameObject spawnPauseIcon;
     public GameObject canvas;
     public GameObject screenNotification;
+    public bool isPaused = false;
+    public GameObject pauseScreen;
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            setPause(!isPaused);
+        }
         if (!isPlayingIntro && runScoreTimer)
         {
             currentTimeTimer += Time.deltaTime;
             currentTime.text = "Current time: " + currentTimeTimer.ToString("0.0");
         }
+    }
+
+    public void setPause(bool pause)
+    {
+        isPaused = pause;
+        pauseScreen.SetActive(isPaused);
+        Time.timeScale = Convert.ToSingle(!isPaused);
     }
 
     // End player's game
@@ -34,20 +48,20 @@ public class GlobalScript : MonoBehaviour
         gameOverScreen.SetActive(true);
     }
     
-    // Go back to main menu
+    // Goes back to the main menu
     public void backToMenu()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
-    // Increase player's score
+    // Increase player's score by the given value
     public void increaseScore(int value)
     {
-        playerScore++;
+        playerScore += value;
         score.text = Convert.ToString(playerScore);
     }
 
-    // Sets if train spawn is allowed
+    // Sets if train spawn is allowed or not
     public void setTrainSpawn(bool allow)
     {
         allowSpawn = allow;
@@ -62,7 +76,7 @@ public class GlobalScript : MonoBehaviour
         notification.GetComponent<TextNotification>().textElement.text = text;
     }
 
-    // Switches current timer status
+    // Switches current station timer status
     public void switchCurrentTimer(string limitName)
     {
         switch (limitName)
@@ -81,6 +95,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[0].text = "Station score: " + currentTimeTimer.ToString("0.0");
+                    stationCoinIndicators[0].setCoinValues((int)currentTimeTimer);
                     showNotification("Arriving to Flores station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
@@ -99,6 +114,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[1].text = "Station score: " + currentTimeTimer.ToString("0.0");
+                    stationCoinIndicators[1].setCoinValues((int)currentTimeTimer);
                     showNotification("Arriving to Carabobo station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
