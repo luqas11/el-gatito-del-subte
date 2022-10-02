@@ -15,11 +15,11 @@ public class CharacterAnimator : MonoBehaviour
     public int index;
     public float animationPeriod;
     public int currentStage = 0;
+    public int initialStage = 0;
 
     private void Start()
     {
-        idleSprite = frontSprites[0];
-        setCurrentAnimation(0);
+        setCurrentAnimation(initialStage);
     }
 
     void Update()

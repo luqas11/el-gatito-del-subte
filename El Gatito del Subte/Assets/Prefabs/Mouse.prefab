@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1673589965061258798}
   - component: {fileID: 7383091234296791301}
   - component: {fileID: 7288688733407239757}
+  - component: {fileID: 4270326201476435208}
   m_Layer: 0
   m_Name: Mouse
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b32a0e953a00a2846b8e8106b78e2656, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ac28358f43137d42ac8547bbd0490a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,3 +106,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4270326201476435208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5529761766839874747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53050de7ddc8e6a46a01b5b0b56f652e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backSprites: []
+  frontSprites: []
+  sideSprites:
+  - {fileID: 21300000, guid: 2ac28358f43137d42ac8547bbd0490a3, type: 3}
+  - {fileID: 21300000, guid: 841e6d40a17a8de48bbc920b95cf2d98, type: 3}
+  - {fileID: 21300000, guid: d767b0feee1241d40abebe9df1441e75, type: 3}
+  currentSprites: []
+  idleSprite: {fileID: 21300000, guid: 2ac28358f43137d42ac8547bbd0490a3, type: 3}
+  timer: 0
+  character: {fileID: 7383091234296791301}
+  index: 0
+  animationPeriod: 0.05
+  currentStage: 0
+  initialStage: 3

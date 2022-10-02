@@ -86,7 +86,7 @@ public class GlobalScript : MonoBehaviour
                 {
                     runScoreTimer = true;
                     checkpointStatus++;
-                    showNotification("Leaving San Pedrito station");
+                    showNotification("Leaving station");
                 }
                 break;
             case "StartF":
@@ -96,7 +96,7 @@ public class GlobalScript : MonoBehaviour
                     checkpointStatus++;
                     stationScores[0].text = "Station score: " + currentTimeTimer.ToString("0.0");
                     stationCoinIndicators[0].setCoinValues((int)currentTimeTimer);
-                    showNotification("Arriving to Flores station after " + currentTimeTimer.ToString("0.0") + "s");
+                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
             case "EndF":
@@ -105,7 +105,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
-                    showNotification("Leaving Flores station");
+                    showNotification("Leaving station");
                 }
                 break;
             case "StartC":
@@ -115,7 +115,7 @@ public class GlobalScript : MonoBehaviour
                     checkpointStatus++;
                     stationScores[1].text = "Station score: " + currentTimeTimer.ToString("0.0");
                     stationCoinIndicators[1].setCoinValues((int)currentTimeTimer);
-                    showNotification("Arriving to Carabobo station after " + currentTimeTimer.ToString("0.0") + "s");
+                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
             case "EndC":
@@ -124,7 +124,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
-                    showNotification("Leaving Carabobo station");
+                    showNotification("Leaving station");
                 }
                 break;
             case "StartP":
@@ -133,7 +133,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[2].text = "Station score: " + currentTimeTimer.ToString("0.0");
-                    showNotification("Arriving to Puan station after " + currentTimeTimer.ToString("0.0") + "s");
+                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
             case "EndP":
@@ -142,7 +142,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
-                    showNotification("Leaving Puan station");
+                    showNotification("Leaving station");
                 }
                 break;
             case "StartPJ":
@@ -151,7 +151,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = false;
                     checkpointStatus++;
                     stationScores[3].text = "Station score: " + currentTimeTimer.ToString("0.0");
-                    showNotification("Arriving to Primera Junta station after " + currentTimeTimer.ToString("0.0") + "s");
+                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s");
                 }
                 break;
             default:

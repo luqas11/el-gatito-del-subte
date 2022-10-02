@@ -64,9 +64,13 @@ public class Player : BaseClass
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("DontSpawnTrains"))
+        if (col.gameObject.CompareTag("DontSpawnTrainsIn"))
         {
-            globalScript.setTrainSpawn(!globalScript.allowSpawn);
+            globalScript.setTrainSpawn(false);
+        }
+        if (col.gameObject.CompareTag("DontSpawnTrainsOut"))
+        {
+            globalScript.setTrainSpawn(true);
         }
         if (col.gameObject.CompareTag("BottomPlatform"))
         {
