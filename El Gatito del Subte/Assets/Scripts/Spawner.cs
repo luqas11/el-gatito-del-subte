@@ -6,32 +6,51 @@ using UnityEngine.UI;
 public class Spawner : BaseClass
 {
     public GameObject train;
-    public float timer;
+    public float topTimer;
     public int spawnTime;
-    public Transform[] spawners;
+    public float bottomTimer;
+    public Transform topSpawner;
+    public Transform bottomSpawner;
     public int trainSpeed;
-    public float trainLifespan;
-    public Image timerImage;
+    public Image topTimerImage;
+    public Image bottomTimerImage;
 
-    int currentSpawner = 0;
+    const float TRAIN_LIFESPAN = 5;
+
+    private void Start()
+    {
+        bottomTimer = spawnTime / 2;
+    }
 
     void Update()
     {
-        timer += Time.deltaTime;
-        timerImage.color = new Color(timer / spawnTime, 1 - timer / spawnTime, 0);
-        if (timer > spawnTime)
+        if (!globalScript.isPlayingIntro)
         {
-            timer = 0;
-            currentSpawner = Convert.ToInt32(!Convert.ToBoolean(currentSpawner));
-            Rigidbody2D spawnedTrain = Instantiate(train, spawners[currentSpawner].position, spawners[currentSpawner].rotation).GetComponent<Rigidbody2D>();
-            spawnedTrain.velocity = Vector2.right * trainSpeed;
-            StartCoroutine(destroyTrain(spawnedTrain.gameObject));
+            topTimer += Time.deltaTime;
+            topTimerImage.color = new Color(topTimer / spawnTime, 1 - topTimer / spawnTime, 0);
+            if (topTimer > spawnTime)
+            {
+                topTimer = 0;
+                Rigidbody2D spawnedTrain = Instantiate(train, topSpawner.position, topSpawner.rotation).GetComponent<Rigidbody2D>();
+                spawnedTrain.velocity = Vector2.right * trainSpeed;
+                StartCoroutine(destroyTrain(spawnedTrain.gameObject));
+            }
+
+            bottomTimer += Time.deltaTime;
+            bottomTimerImage.color = new Color(bottomTimer / spawnTime, 1 - bottomTimer / spawnTime, 0);
+            if (bottomTimer > spawnTime)
+            {
+                bottomTimer = 0;
+                Rigidbody2D spawnedTrain = Instantiate(train, bottomSpawner.position, bottomSpawner.rotation).GetComponent<Rigidbody2D>();
+                spawnedTrain.velocity = Vector2.right * trainSpeed;
+                StartCoroutine(destroyTrain(spawnedTrain.gameObject));
+            }
         }
     }
 
     IEnumerator destroyTrain(GameObject objectToDestroy)
     {
-        yield return new WaitForSeconds(trainLifespan);
+        yield return new WaitForSeconds(TRAIN_LIFESPAN);
         Destroy(objectToDestroy);
     }
 }

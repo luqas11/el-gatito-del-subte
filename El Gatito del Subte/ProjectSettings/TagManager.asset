@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Train
   - Coin
+  - GlobalObject
+  - TunnelLimit
   layers:
   - Default
   - TransparentFX
