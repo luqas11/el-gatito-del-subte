@@ -1,4 +1,4 @@
-Table that determines which elements corresponds to each sprite layer.
+Table that specifies which elements corresponds to each sprite layer.
 
 | Layer | Content                 |
 |---| ---                         |
