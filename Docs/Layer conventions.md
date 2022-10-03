@@ -1,7 +1,7 @@
-Table that determines which sprite types corresponds to each layer.
+Table that determines which elements corresponds to each sprite layer.
 
 | Layer | Content                 |
-|---| ---                          |
+|---| ---                         |
 | 0 | Railways                    |
 | 1 | Top platforms               |
 | 2 | Cat                         |
