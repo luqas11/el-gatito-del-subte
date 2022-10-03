@@ -13,7 +13,6 @@ public class GlobalScript : MonoBehaviour
     public Text currentTime;
     public int checkpointStatus;
     public bool runScoreTimer;
-    public Text[] stationScores;
     public StationReward[] stationCoinIndicators;
     public bool allowSpawn = true;
     public GameObject spawnPauseIcon;
@@ -21,6 +20,9 @@ public class GlobalScript : MonoBehaviour
     public GameObject screenNotification;
     public bool isPaused = false;
     public GameObject pauseScreen;
+    public Text gameOverScoreIndicator;
+    public GameObject trainSpawnIndicators;
+    public bool trainIndicatorsActive = true;
 
     void Update()
     {
@@ -31,10 +33,17 @@ public class GlobalScript : MonoBehaviour
         if (!isPlayingIntro && runScoreTimer)
         {
             currentTimeTimer += Time.deltaTime;
-            currentTime.text = "Current time: " + currentTimeTimer.ToString("0.0");
+            currentTime.text = currentTimeTimer.ToString("0.0") + "s";
         }
     }
 
+    // Show or hide the train indicators
+    public void setTrainIndicatorsVisibility(bool isActive)
+    {
+        trainIndicatorsActive = isActive;
+    }
+
+    // Pauses the game and show a pause screen
     public void setPause(bool pause)
     {
         isPaused = pause;
@@ -46,12 +55,14 @@ public class GlobalScript : MonoBehaviour
     public void gameOver()
     {
         gameOverScreen.SetActive(true);
+        gameOverScoreIndicator.text = "SCORE: " + playerScore;
     }
     
     // Goes back to the main menu
     public void backToMenu()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
+        Time.timeScale = 1;
     }
 
     // Increase player's score by the given value
@@ -86,7 +97,7 @@ public class GlobalScript : MonoBehaviour
                 {
                     runScoreTimer = true;
                     checkpointStatus++;
-                    showNotification("Leaving station");
+                    showNotification("Entering next tunnel");
                 }
                 break;
             case "StartF":
@@ -94,9 +105,8 @@ public class GlobalScript : MonoBehaviour
                 {
                     runScoreTimer = false;
                     checkpointStatus++;
-                    stationScores[0].text = "Station score: " + currentTimeTimer.ToString("0.0");
-                    stationCoinIndicators[0].setCoinValues((int)currentTimeTimer);
-                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s");
+                    int coinAmount = stationCoinIndicators[0].setCoinValues((int)currentTimeTimer);
+                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s. A reward of " + coinAmount + " coins is available.");
                 }
                 break;
             case "EndF":
@@ -105,7 +115,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
-                    showNotification("Leaving station");
+                    showNotification("Entering next tunnel");
                 }
                 break;
             case "StartC":
@@ -113,9 +123,8 @@ public class GlobalScript : MonoBehaviour
                 {
                     runScoreTimer = false;
                     checkpointStatus++;
-                    stationScores[1].text = "Station score: " + currentTimeTimer.ToString("0.0");
-                    stationCoinIndicators[1].setCoinValues((int)currentTimeTimer);
-                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s");
+                    int coinAmount = stationCoinIndicators[1].setCoinValues((int)currentTimeTimer);
+                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s. A reward of " + coinAmount + " coins is available.");
                 }
                 break;
             case "EndC":
@@ -124,7 +133,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
-                    showNotification("Leaving station");
+                    showNotification("Entering next tunnel");
                 }
                 break;
             case "StartP":
@@ -132,8 +141,8 @@ public class GlobalScript : MonoBehaviour
                 {
                     runScoreTimer = false;
                     checkpointStatus++;
-                    stationScores[2].text = "Station score: " + currentTimeTimer.ToString("0.0");
-                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s");
+                    int coinAmount = stationCoinIndicators[3].setCoinValues((int)currentTimeTimer);
+                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s. A reward of " + coinAmount + " coins is available.");
                 }
                 break;
             case "EndP":
@@ -142,7 +151,7 @@ public class GlobalScript : MonoBehaviour
                     runScoreTimer = true;
                     checkpointStatus++;
                     currentTimeTimer = 0;
-                    showNotification("Leaving station");
+                    showNotification("Entering next tunnel");
                 }
                 break;
             case "StartPJ":
@@ -150,8 +159,8 @@ public class GlobalScript : MonoBehaviour
                 {
                     runScoreTimer = false;
                     checkpointStatus++;
-                    stationScores[3].text = "Station score: " + currentTimeTimer.ToString("0.0");
-                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s");
+                    int coinAmount = stationCoinIndicators[3].setCoinValues((int)currentTimeTimer);
+                    showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s. A reward of " + coinAmount + " coins is available.");
                 }
                 break;
             default:

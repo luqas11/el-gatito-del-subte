@@ -12,8 +12,8 @@ public class Spawner : BaseClass
     public Transform topSpawner;
     public Transform bottomSpawner;
     public int trainSpeed;
-    public Image topTimerImage;
-    public Image bottomTimerImage;
+    public Image[] topTimerDots;
+    public Image[] bottomTimerDots;
 
     const float TRAIN_LIFESPAN = 5;
 
@@ -27,7 +27,12 @@ public class Spawner : BaseClass
         if (!globalScript.isPlayingIntro && globalScript.allowSpawn)
         {
             topTimer += Time.deltaTime;
-            topTimerImage.color = new Color(getExpIntensity(topTimer), 1 - getExpIntensity(topTimer), 0);
+            int topRedDots = (int)Math.Round(topTimer / spawnTime * topTimerDots.Length);
+            for (int i=0; i < topTimerDots.Length; i++)
+            {
+                topTimerDots[i].color = (i < topRedDots) ? Color.red : Color.green;
+            }
+
             if (topTimer > spawnTime)
             {
                 topTimer = 0;
@@ -37,13 +42,30 @@ public class Spawner : BaseClass
             }
 
             bottomTimer += Time.deltaTime;
-            bottomTimerImage.color = new Color(getExpIntensity(bottomTimer), 1 - getExpIntensity(bottomTimer), 0);
+            int bottomRedDots = (int)Math.Round(bottomTimer / spawnTime * bottomTimerDots.Length);
+            for (int i = 0; i < topTimerDots.Length; i++)
+            {
+                bottomTimerDots[i].color = (i < bottomRedDots) ? Color.red : Color.green;
+            }
+
             if (bottomTimer > spawnTime)
             {
                 bottomTimer = 0;
                 Rigidbody2D spawnedTrain = Instantiate(train, bottomSpawner.position, bottomSpawner.rotation).GetComponent<Rigidbody2D>();
                 spawnedTrain.velocity = Vector2.left * trainSpeed;
                 StartCoroutine(destroyTrain(spawnedTrain.gameObject));
+            }
+        }
+
+        if (!globalScript.trainIndicatorsActive)
+        {
+            foreach(Image dot in topTimerDots)
+            {
+                dot.color = Color.gray;
+            }
+            foreach (Image dot in bottomTimerDots)
+            {
+                dot.color = Color.gray;
             }
         }
     }
@@ -53,11 +75,5 @@ public class Spawner : BaseClass
     {
         yield return new WaitForSeconds(TRAIN_LIFESPAN);
         Destroy(objectToDestroy);
-    }
-
-    // Maps a [0, 1] linear function to an exponential function
-    public float getExpIntensity(float timer)
-    {
-        return (float)(Math.Exp(5 * timer / spawnTime - 3) / 8);
     }
 }

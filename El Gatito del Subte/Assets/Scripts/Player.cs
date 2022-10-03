@@ -60,6 +60,10 @@ public class Player : BaseClass
             globalScript.increaseScore(col.gameObject.GetComponent<StationReward>().coinAmount);
             Destroy(col.gameObject);
         }
+        if (col.gameObject.CompareTag("DisableTrainIndicators"))
+        {
+            globalScript.setTrainIndicatorsVisibility(false);
+        }
     }
 
     void OnTriggerExit2D(Collider2D col)

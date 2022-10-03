@@ -6,9 +6,9 @@ public class TextNotification : MonoBehaviour
     public Text textElement;
     public Image panelImage;
     public float timer;
-    public float aplhaValue = 0;
+    public float alphaValue = 0;
 
-    const float NOTIFICATION_TIME = 8;
+    const float NOTIFICATION_TIME = 6;
 
     public void Update()
     {
@@ -19,17 +19,18 @@ public class TextNotification : MonoBehaviour
         }
         else if (timer > 4 * NOTIFICATION_TIME / 5)
         {
-            aplhaValue = 5 - timer / (NOTIFICATION_TIME / 5);
+            alphaValue = 5 - timer / (NOTIFICATION_TIME / 5);
         }
         else if (timer > NOTIFICATION_TIME / 5)
         {
-            aplhaValue = 1;
+            alphaValue = 1;
         }
         else
         {
-            aplhaValue = timer / (NOTIFICATION_TIME / 5);
+            alphaValue = timer / (NOTIFICATION_TIME / 5);
         }
-        textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, aplhaValue);
-        panelImage.color = new Color(panelImage.color.r, panelImage.color.g, panelImage.color.b, aplhaValue);
+        alphaValue *= 0.8f;
+        textElement.color = new Color(textElement.color.r, textElement.color.g, textElement.color.b, alphaValue);
+        panelImage.color = new Color(panelImage.color.r, panelImage.color.g, panelImage.color.b, alphaValue);
     }
 }
