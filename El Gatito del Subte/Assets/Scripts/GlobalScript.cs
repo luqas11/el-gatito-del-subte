@@ -86,6 +86,7 @@ public class GlobalScript : MonoBehaviour
     {
         GameObject notification = Instantiate(screenNotification);
         notification.transform.SetParent(canvas.transform, false);
+        notification.transform.SetSiblingIndex(0);
         notification.GetComponent<TextNotification>().textElement.text = text;
     }
 
