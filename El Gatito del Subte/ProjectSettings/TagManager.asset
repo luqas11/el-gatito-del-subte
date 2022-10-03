@@ -12,7 +12,7 @@ TagManager:
   - StationRewardIndicator
   - DontSpawnTrainsIn
   - DontSpawnTrainsOut
-  - DisableTrainIndicators
+  - EndGame
   layers:
   - Default
   - TransparentFX

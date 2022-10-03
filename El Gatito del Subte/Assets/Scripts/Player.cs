@@ -60,9 +60,9 @@ public class Player : BaseClass
             globalScript.increaseScore(col.gameObject.GetComponent<StationReward>().coinAmount);
             Destroy(col.gameObject);
         }
-        if (col.gameObject.CompareTag("DisableTrainIndicators"))
+        if (col.gameObject.CompareTag("EndGame"))
         {
-            globalScript.setTrainIndicatorsVisibility(false);
+            globalScript.winGame();
         }
     }
 

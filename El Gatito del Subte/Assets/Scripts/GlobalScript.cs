@@ -15,14 +15,14 @@ public class GlobalScript : MonoBehaviour
     public bool runScoreTimer;
     public StationReward[] stationCoinIndicators;
     public bool allowSpawn = true;
-    public GameObject spawnPauseIcon;
     public GameObject canvas;
     public GameObject screenNotification;
     public bool isPaused = false;
     public GameObject pauseScreen;
     public Text gameOverScoreIndicator;
-    public GameObject trainSpawnIndicators;
-    public bool trainIndicatorsActive = true;
+    public bool playerHasWin = false;
+    public GameObject gameWinScreen;
+    public Text gameWinScoreIndicator;
 
     void Update()
     {
@@ -37,10 +37,13 @@ public class GlobalScript : MonoBehaviour
         }
     }
 
-    // Show or hide the train indicators
-    public void setTrainIndicatorsVisibility(bool isActive)
+    // Make the player win de game
+    public void winGame()
     {
-        trainIndicatorsActive = isActive;
+        playerHasWin = true;
+        gameWinScoreIndicator.text = "FINAL SCORE: " + playerScore;
+        gameWinScreen.SetActive(true);
+        Time.timeScale = Convert.ToSingle(0);
     }
 
     // Pauses the game and show a pause screen
@@ -76,7 +79,6 @@ public class GlobalScript : MonoBehaviour
     public void setTrainSpawn(bool allow)
     {
         allowSpawn = allow;
-        spawnPauseIcon.SetActive(!allow);
     }
 
     // Shows a text notification overlay, that disappears after some time
@@ -141,7 +143,7 @@ public class GlobalScript : MonoBehaviour
                 {
                     runScoreTimer = false;
                     checkpointStatus++;
-                    int coinAmount = stationCoinIndicators[3].setCoinValues((int)currentTimeTimer);
+                    int coinAmount = stationCoinIndicators[2].setCoinValues((int)currentTimeTimer);
                     showNotification("Arriving to station after " + currentTimeTimer.ToString("0.0") + "s. A reward of " + coinAmount + " coins is available.");
                 }
                 break;

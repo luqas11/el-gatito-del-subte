@@ -57,15 +57,15 @@ public class Spawner : BaseClass
             }
         }
 
-        if (!globalScript.trainIndicatorsActive)
+        if (!globalScript.allowSpawn)
         {
             foreach(Image dot in topTimerDots)
             {
-                dot.color = Color.gray;
+                dot.color = new Color(Math.Min(dot.color.r, 0.25f), Math.Min(dot.color.g, 0.25f), dot.color.b);
             }
             foreach (Image dot in bottomTimerDots)
             {
-                dot.color = Color.gray;
+                dot.color = new Color(Math.Min(dot.color.r, 0.25f), Math.Min(dot.color.g, 0.25f), dot.color.b);
             }
         }
     }
